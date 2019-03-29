@@ -219,11 +219,11 @@ class HttpTransport extends AbstractTransport
 
         // if we don't have a HTTP/1.1 connection, or the server decided to close the connection
         // we should do so as well. next read/write-attempt will open a new socket in this case.
-        if (strpos($headers, "HTTP/1.1") !== 0 || preg_match("!Connection:\s*Close!i", $headers)) {
+        if (strpos($headers, "HTTP/1.1") !== 0 || preg_match("/Connection:\s*Close/i", $headers)) {
             $this->socketClient->close();
         }
 
-        if (!preg_match("!^HTTP/1.\d 202 Accepted!i", $headers)) {
+        if (!preg_match("/^HTTP/1.\d 202 Accepted/i", $headers)) {
             throw new RuntimeException(
                 sprintf(
                     "Graylog-Server didn't answer properly, expected 'HTTP/1.x 202 Accepted', response is '%s'",
