@@ -223,7 +223,7 @@ class HttpTransport extends AbstractTransport
             $this->socketClient->close();
         }
 
-        if (!preg_match("/^HTTP/1.\d 202 Accepted/i", $headers)) {
+        if (!preg_match("/^HTTP\/1.\d 202 Accepted/i", $headers)) {
             throw new RuntimeException(
                 sprintf(
                     "Graylog-Server didn't answer properly, expected 'HTTP/1.x 202 Accepted', response is '%s'",
